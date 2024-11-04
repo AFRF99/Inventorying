@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1022044177744",
+    "project_id": "movies-home-e89b7",
+    "storage_bucket": "movies-home-e89b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022044177744:android:8bcc13293962cd79849855",
+        "android_client_info": {
+          "package_name": "com.edwinacubillos.my_movies"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChOIc_88HqJ74a6TqI9PBvxnVWuROE4k0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

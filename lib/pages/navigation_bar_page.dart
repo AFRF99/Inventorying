@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:my_movies/pages/favorite_movies_page.dart';
+import 'package:my_movies/pages/movie_db_page.dart';
+import 'package:my_movies/pages/my_movies_page.dart';
+import 'package:my_movies/pages/profile_page.dart';
+import 'package:my_movies/pages/solicitudes_page.dart';
+
+class NavigationBarPage extends StatefulWidget {
+  const NavigationBarPage({super.key});
+
+  @override
+  State<NavigationBarPage> createState() => _NavigationBarPageState();
+}
+
+class _NavigationBarPageState extends State<NavigationBarPage> {
+  int _selectedIndex = 0;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    MyMoviesPage(),
+    MovieDbPage(),
+    FavoriteMoviesPage(),
+    ProfilePage(),
+    //SolicitudesPage()
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Center(
+            child: const Text("Administrador", textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.green),)
+      )),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.list), label: "Ingresar"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.delete_forever_sharp), label: "Retirar"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.pageview_outlined), label: "Buscar"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person), label: "Perfil"),
+            // BottomNavigationBarItem(
+            //     icon: Icon(Icons.person), label: "Perfil"),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey,
+          onTap: _onItemTapped),
+    );
+  }
+}
