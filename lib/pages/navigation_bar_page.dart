@@ -34,7 +34,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-            child: const Text("Administrador", textAlign: TextAlign.center,
+            child: const Text("Inventorying", textAlign: TextAlign.center,
         style: TextStyle(color: Colors.green),)
       )),
       body: Center(
@@ -43,11 +43,11 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
       bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.list), label: "Ingresar"),
+                icon: Icon(Icons.list), label: "Inventario"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.delete_forever_sharp), label: "Retirar"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.pageview_outlined), label: "Buscar"),
+                icon: Icon(Icons.edit_note_rounded), label: "Editar"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person), label: "Perfil"),
             // BottomNavigationBarItem(

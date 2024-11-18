@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyChOIc_88HqJ74a6TqI9PBvxnVWuROE4k0',
-    appId: '1:1022044177744:android:8bcc13293962cd79849855',
-    messagingSenderId: '1022044177744',
-    projectId: 'movies-home-e89b7',
-    storageBucket: 'movies-home-e89b7.appspot.com',
+    apiKey: 'AIzaSyBqs92RCg8YK1rNoSb9V9QeJw-UworS4nw',
+    appId: '1:8898527657:android:53660a72d332e7965504b8',
+    messagingSenderId: '8898527657',
+    projectId: 'inventorying-7466e',
+    storageBucket: 'inventorying-7466e.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBQ5_tarrkvnRj82o74VGt0-6G7gML138E',
-    appId: '1:1022044177744:ios:fb97af4e39a22fb5849855',
-    messagingSenderId: '1022044177744',
-    projectId: 'movies-home-e89b7',
-    storageBucket: 'movies-home-e89b7.appspot.com',
+    apiKey: 'AIzaSyD3twgeucq0Ae545xhCow_REOdEqJJCc5I',
+    appId: '1:8898527657:ios:164ce0e1b55e8be85504b8',
+    messagingSenderId: '8898527657',
+    projectId: 'inventorying-7466e',
+    storageBucket: 'inventorying-7466e.firebasestorage.app',
     iosBundleId: 'com.edwinacubillos.myMovies',
   );
+
 }

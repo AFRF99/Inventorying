@@ -1,5 +1,7 @@
-class User {
+class User{
+  var _uid;
   var _name;
+  var _apellido;
   var _email;
   var _password;
   var _genre;
@@ -15,7 +17,9 @@ class User {
   User.Empty();
 
   Map<String, dynamic> toJson() => {
+        "uid": _uid,
         "name": _name,
+        "apellido":_apellido,
         "email": _email,
         "password": _password,
         "genre": _genre,
@@ -30,7 +34,9 @@ class User {
       };
 
   User.fromJson(Map<String, dynamic> json)
-      : _name = json['name'],
+      : _uid = json['uid'],
+        _name = json['name'],
+        _apellido = json['apellido'],
         _email = json['email'],
         _password = json['password'],
         _genre = json['genre'],
@@ -110,7 +116,9 @@ class User {
   }
 
   User(
+      this._uid,
       this._name,
+      this._apellido,
       this._email,
       this._password,
       this._genre,
@@ -127,5 +135,17 @@ class User {
 
   set city(value) {
     _city = value;
+  }
+
+  get uid => _uid;
+
+  set uid(value) {
+    _uid = value;
+  }
+
+  get apellido => _apellido;
+
+  set apellido(value) {
+    _apellido = value;
   }
 }

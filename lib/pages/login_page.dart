@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:my_movies/models/user.dart';
-import 'package:my_movies/pages/home_page.dart';
 import 'package:my_movies/pages/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,15 +24,6 @@ class _LoginPageState extends State<LoginPage> {
   User user = User.Empty();
 
   bool _isPasswordObscure = true;
-
-  /*void _getUser() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Map<String, dynamic> userMap = jsonDecode(prefs.getString("user")!);
-    user = User.fromJson(userMap);
-    print(user.email);
-    print(user.password);
-    }
-  */
 
   void _showMessage(String msg) {
     setState(() {
