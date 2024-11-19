@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,18 +20,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore.instance.clearPersistence();
     return MaterialApp(
+
       title: 'Flutter Demo',
-      localizationsDelegates: const [
+     /* localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
-      ],
-      supportedLocales: const[
+      ],*/
+      /*supportedLocales: const[
         Locale("es", "CO"),
         Locale("en", "US"),
-      ],
+      ],*/
       //locale: const Locale("es", "CO"),
-      theme: ThemeData(
+
+
+        theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),

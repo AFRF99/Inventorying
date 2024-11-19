@@ -16,23 +16,41 @@ class MyMoviesPage extends StatefulWidget {
 class _MyMoviesPageState extends State<MyMoviesPage> {
   String _searchQuery = ''; // Almacena el texto del campo de búsqueda
   final FirebaseApi _firebaseApi = FirebaseApi();
+  bool _isAdmin = false; // Indica si el usuario es administrador
+  bool _isLoading = true; // Indica si los datos del usuario están cargando
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAdminStatus(); // Verificar si el usuario es administrador
+  }
+
+  Future<void> _checkAdminStatus() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var userData = await _firebaseApi.getUserData(user.uid);
+      setState(() {
+        _isAdmin = userData?.isActionFavorite ?? false;
+        _isLoading = false; // Finaliza la carga de datos
+      });
+    } else {
+      setState(() {
+        _isLoading = false; // Finaliza la carga si no hay usuario
+      });
+    }
+  }
 
   void _addButtonClicked() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // Obtener los datos del usuario
       var userData = await _firebaseApi.getUserData(user.uid);
-
       if (userData != null && userData.isActionFavorite) {
-        // Si el usuario es administrador (isActionFavorite == true), permitir el acceso
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => NewItemPage()));
       } else {
-        // Si el usuario no es administrador, mostrar mensaje
         _showMessage("Solo los administradores pueden agregar nuevos materiales.");
       }
     } else {
-      // Si no hay usuario autenticado, redirigir al inicio de sesión
       _showMessage("Debes iniciar sesión para agregar materiales.");
     }
   }
@@ -42,7 +60,7 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
     if (result == 'network-request-failed') {
       _showMessage("Revise su conexión a internet");
     } else {
-      _showMessage("Material eliminada con éxito");
+      _showMessage("Material eliminado con éxito");
     }
   }
 
@@ -54,11 +72,9 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
   void _showAlertDialog(QueryDocumentSnapshot movie) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // Obtener datos del usuario
       var userData = await _firebaseApi.getUserData(user.uid);
 
       if (userData != null && userData.isActionFavorite) {
-        // Si el usuario es administrador (isActionFavorite == true), continuar con la eliminación
         TextEditingController passwordController = TextEditingController(); // Controlador para la contraseña
 
         AlertDialog alert = AlertDialog(
@@ -81,14 +97,11 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
             ),
             TextButton(
               onPressed: () async {
-                // Verificar la contraseña del usuario
                 bool passwordIsCorrect = await _verifyPassword(passwordController.text);
                 if (passwordIsCorrect) {
-                  // Si la contraseña es correcta, eliminar el objeto
                   _deleteMovie(movie);
                   Navigator.pop(context); // Cerrar el diálogo
                 } else {
-                  // Si la contraseña es incorrecta, mostrar mensaje de error
                   _showMessage("Contraseña incorrecta. No se puede eliminar el material.");
                   Navigator.pop(context); // Cerrar el diálogo
                 }
@@ -105,35 +118,28 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
           },
         );
       } else {
-        // Si no es un administrador, mostrar mensaje
         _showMessage("Solo los administradores pueden eliminar este material.");
       }
     }
   }
 
-
-// Función para verificar la contraseña ingresada
   Future<bool> _verifyPassword(String password) async {
     try {
-      // Obtener el usuario actual
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        // Verificar la contraseña con Firebase
         AuthCredential credential = EmailAuthProvider.credential(
           email: user.email!,
           password: password,
         );
         await user.reauthenticateWithCredential(credential);
-        return true; // Si la autenticación es exitosa, devuelve true
+        return true;
       }
       return false;
     } catch (e) {
-      // Si la autenticación falla, devuelve false
       print("Error al verificar la contraseña: $e");
       return false;
     }
   }
-
 
   void _showDetails(QueryDocumentSnapshot movie) {
     Navigator.push(
@@ -176,9 +182,7 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
   Widget _buildImage(String urlPicture) {
     if (urlPicture.isNotEmpty) {
       try {
-        // Decodificar la imagen base64
-        final base64Data =
-        urlPicture.contains(',') ? urlPicture.split(',').last : urlPicture;
+        final base64Data = urlPicture.contains(',') ? urlPicture.split(',').last : urlPicture;
         Uint8List decodedBytes = base64Decode(base64Data);
         return Image.memory(
           decodedBytes,
@@ -209,7 +213,7 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
             child: TextField(
               onChanged: (value) {
                 setState(() {
-                  _searchQuery = value.trim().toLowerCase(); // Actualizar búsqueda
+                  _searchQuery = value.trim().toLowerCase();
                 });
               },
               decoration: const InputDecoration(
@@ -221,7 +225,9 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
           ),
         ),
       ),
-      body: Padding(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection("materials").snapshots(),
@@ -241,10 +247,12 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: _isAdmin
+          ? FloatingActionButton(
         onPressed: _addButtonClicked,
         child: const Icon(Icons.add),
-      ),
+      )
+          : null,
     );
   }
 }
@@ -268,9 +276,7 @@ class DetailsPage extends StatelessWidget {
             Center(
               child: movie['urlPicture'].isNotEmpty
                   ? Image.memory(
-                base64Decode(movie['urlPicture']
-                    .split(',')
-                    .last), // Decodifica y muestra la imagen
+                base64Decode(movie['urlPicture'].split(',').last),
                 height: 200,
               )
                   : Image.asset('assets/images/logo.webp', height: 200),
@@ -309,3 +315,5 @@ class DetailsPage extends StatelessWidget {
     );
   }
 }
+
+

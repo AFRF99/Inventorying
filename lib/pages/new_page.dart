@@ -37,14 +37,14 @@ class _NewItemPageState extends State<NewItemPage> {
       "",
       _name.text,
       _descripcion.text,
-       int.parse(_cantidad.text),
-       int.parse(_canales.text),
-       int.parse(_salidasVoltaje.text),
-       int.parse(_salidasCorriente.text),
-       _funcionOnda,
-       _contadorPulsos,
-       _pantallaTactil,
-       _imageBase64 ?? '',
+      int.parse(_cantidad.text),
+      int.parse(_canales.text),
+      int.parse(_salidasVoltaje.text),
+      int.parse(_salidasCorriente.text),
+      _funcionOnda,
+      _contadorPulsos,
+      _pantallaTactil,
+      _imageBase64 ?? '',
     );
 
     var result = await _firebaseApi.createMaterial(tool);
@@ -64,6 +64,7 @@ class _NewItemPageState extends State<NewItemPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  // Función para seleccionar una imagen
   Future pickImage() async {
     try {
       final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);

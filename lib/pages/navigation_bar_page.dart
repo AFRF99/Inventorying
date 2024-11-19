@@ -3,7 +3,6 @@ import 'package:my_movies/pages/favorite_movies_page.dart';
 import 'package:my_movies/pages/movie_db_page.dart';
 import 'package:my_movies/pages/my_movies_page.dart';
 import 'package:my_movies/pages/profile_page.dart';
-import 'package:my_movies/pages/solicitudes_page.dart';
 
 class NavigationBarPage extends StatefulWidget {
   const NavigationBarPage({super.key});
@@ -34,7 +33,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-            child: const Text("Inventorying", textAlign: TextAlign.center,
+            child: Text("Inventorying", textAlign: TextAlign.center,
         style: TextStyle(color: Colors.green),)
       )),
       body: Center(
