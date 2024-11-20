@@ -43,14 +43,14 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.list), label: "Inventario"),
+            /*BottomNavigationBarItem(
+                icon: Icon(Icons.delete_forever_sharp), label: "Retirar"),*/
             BottomNavigationBarItem(
-                icon: Icon(Icons.delete_forever_sharp), label: "Retirar"),
+                icon: Icon(Icons.manage_search), label: "Solicitar"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.edit_note_rounded), label: "Editar"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person), label: "Perfil"),
-            // BottomNavigationBarItem(
-            //     icon: Icon(Icons.person), label: "Perfil"),
+             BottomNavigationBarItem(
+                 icon: Icon(Icons.person), label: "Perfil"),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.black,
