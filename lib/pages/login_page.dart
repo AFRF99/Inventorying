@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:my_movies/models/user.dart';
 import 'package:my_movies/pages/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final FirebaseApi _firebaseApi = FirebaseApi();
 
   bool _isPasswordObscure = true;
-  bool _isLoading = false; // Estado de carga para bloquear el botón
+  bool _isLoading = false;
 
   void _showMessage(String msg) {
     final snackBar = SnackBar(content: Text(msg));
@@ -29,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool _isValidEmail(String email) {
-    // Expresión regular para validar el formato del correo electrónico
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return emailRegex.hasMatch(email);
   }
@@ -38,13 +34,11 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    // Validar campos vacíos
     if (email.isEmpty || password.isEmpty) {
       _showMessage("Por favor, complete todos los campos.");
       return;
     }
 
-    // Validar formato del correo
     if (!_isValidEmail(email)) {
       _showMessage("Por favor, ingrese un correo electrónico válido.");
       return;
@@ -90,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF638867),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(

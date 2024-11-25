@@ -64,7 +64,6 @@ class _NewItemPageState extends State<NewItemPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  // Función para seleccionar una imagen
   Future pickImage() async {
     try {
       final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -140,13 +139,13 @@ class _NewItemPageState extends State<NewItemPage> {
               TextField(
                 controller: _salidasVoltaje,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Salidas de Voltaje'),
+                decoration: const InputDecoration(labelText: 'Voltaje máximo'),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _salidasCorriente,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Salidas de Corriente'),
+                decoration: const InputDecoration(labelText: 'Corriente máxima'),
               ),
               const SizedBox(height: 16.0),
               SwitchListTile(

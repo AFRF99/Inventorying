@@ -18,7 +18,7 @@ class _MovieDbPageState extends State<MovieDbPage> {
   @override
   void initState() {
     super.initState();
-    _syncBorrowedMaterials(); // Sincronizar pedidos con la base de datos principal
+    _syncBorrowedMaterials();
   }
 
   Future<void> _syncBorrowedMaterials() async {
@@ -33,7 +33,7 @@ class _MovieDbPageState extends State<MovieDbPage> {
       for (String materialId in materialIds) {
         final materialDoc = await _firestore.collection("materials").doc(materialId).get();
 
-        // Si el material ya no existe, eliminarlo de la subcolección
+
         if (!materialDoc.exists) {
           borrowedCollection.doc(materialId).delete();
         }
@@ -51,12 +51,12 @@ class _MovieDbPageState extends State<MovieDbPage> {
       return;
     }
 
-    // Actualizar la cantidad en la base de datos
+
     await _firestore.collection("materials").doc(materialId).update({
       'cantidad': currentQuantity - 1,
     });
 
-    // Registrar el pedido en la subcolección del usuario (incrementar si ya existe)
+
     final borrowedDoc = _firestore
         .collection("users")
         .doc(_userId)
@@ -84,7 +84,6 @@ class _MovieDbPageState extends State<MovieDbPage> {
     final materialId = material.id;
     final currentQuantity = material['cantidad'];
 
-    // Verificar si el material está en los pedidos del usuario
     final borrowedDoc = _firestore
         .collection("users")
         .doc(_userId)
@@ -100,12 +99,12 @@ class _MovieDbPageState extends State<MovieDbPage> {
 
     final borrowedQuantity = borrowedSnapshot['quantity'];
 
-    // Actualizar la cantidad en la base de datos
+
     await _firestore.collection("materials").doc(materialId).update({
       'cantidad': currentQuantity + 1,
     });
 
-    // Actualizar o eliminar el material de la subcolección del usuario
+
     if (borrowedQuantity > 1) {
       borrowedDoc.update({
         'quantity': FieldValue.increment(-1),

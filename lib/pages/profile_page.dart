@@ -16,13 +16,12 @@ class _ProfilePageState extends State<ProfilePage> {
   User? _currentUser;
   bool _isLoading = true;
 
-  // Controladores para los campos del perfil
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _apellidoController = TextEditingController(); // Controlador para el apellido
+  final _apellidoController = TextEditingController();
 
-  String _role = ''; // Variable para el rol del usuario
-  IconData _roleIcon = Icons.person; // Icono para el rol del usuario
+  String _role = '';
+  IconData _roleIcon = Icons.person;
 
   @override
   void initState() {
@@ -39,13 +38,13 @@ class _ProfilePageState extends State<ProfilePage> {
         if (userDoc.exists) {
           var data = userDoc.data()!;
           _nameController.text = data['name'] ?? '';
-          _apellidoController.text = data['apellido'] ?? ''; // Cargar apellido
+          _apellidoController.text = data['apellido'] ?? '';
           _emailController.text = _currentUser!.email ?? '';
 
-          // Obtener isActionFavorite para determinar el rol
+
           bool isAdmin = data['isActionFavorite'] ?? false;
-          _role = isAdmin ? 'Administrador' : 'Usuario'; // Definir rol
-          _roleIcon = isAdmin ? Icons.build : Icons.person; // Seleccionar icono
+          _role = isAdmin ? 'Administrador' : 'Usuario';
+          _roleIcon = isAdmin ? Icons.build : Icons.person;
         }
       } catch (e) {
         print("Error fetching user data: $e");
@@ -61,8 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
       try {
         await _firestore.collection('users').doc(_currentUser!.uid).set({
           'name': _nameController.text.trim(),
-          'apellido': _apellidoController.text.trim(), // Ahora también se actualiza el apellido
-          // No actualizamos el rol, ya que este es solo lectura
+          'apellido': _apellidoController.text.trim(),
         }, SetOptions(merge: true));
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -140,17 +138,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   labelText: "Correo electrónico",
                   border: OutlineInputBorder(),
                 ),
-                readOnly: true, // El correo no se puede editar.
+                readOnly: true,
               ),
               const SizedBox(height: 10),
-              // Rol del usuario, solo lectura
+
               TextField(
                 controller: TextEditingController(text: _role),
                 decoration: const InputDecoration(
                   labelText: "Rol",
                   border: OutlineInputBorder(),
                 ),
-                readOnly: true, // El rol no se puede editar
+                readOnly: true,
               ),
               const SizedBox(height: 20),
               ElevatedButton(

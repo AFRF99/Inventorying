@@ -12,9 +12,11 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+
+  Color backgroundColor = const Color(0xFF638867);
+
   Future<void> _closeSplash() async {
     Future.delayed(const Duration(seconds: 2), () async {
-
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user == null) {
           Navigator.pushReplacement(context,
@@ -37,10 +39,27 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: backgroundColor,
       body: Center(
-        child: Image(
-          image: AssetImage('assets/images/logo.webp'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Image(
+              image: AssetImage('assets/images/logo.webp'),
+              width: 150,
+              height: 150,
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              "Bienvenido a Inventorying",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );

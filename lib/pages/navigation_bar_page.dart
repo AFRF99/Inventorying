@@ -3,6 +3,7 @@ import 'package:my_movies/pages/favorite_movies_page.dart';
 import 'package:my_movies/pages/movie_db_page.dart';
 import 'package:my_movies/pages/my_movies_page.dart';
 import 'package:my_movies/pages/profile_page.dart';
+import 'package:my_movies/pages/solicitudes_page.dart';
 
 class NavigationBarPage extends StatefulWidget {
   const NavigationBarPage({super.key});
@@ -17,9 +18,10 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     MyMoviesPage(),
     MovieDbPage(),
+    SolicitudesPage(),
     FavoriteMoviesPage(),
     ProfilePage(),
-    //SolicitudesPage()
+
   ];
 
   void _onItemTapped(int index) {
@@ -43,10 +45,10 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.list), label: "Inventario"),
-            /*BottomNavigationBarItem(
-                icon: Icon(Icons.delete_forever_sharp), label: "Retirar"),*/
             BottomNavigationBarItem(
                 icon: Icon(Icons.manage_search), label: "Solicitar"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.checklist), label: "Registro"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.edit_note_rounded), label: "Editar"),
              BottomNavigationBarItem(

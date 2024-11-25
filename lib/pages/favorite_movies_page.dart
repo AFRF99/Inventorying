@@ -16,7 +16,7 @@ class FavoriteMoviesPage extends StatefulWidget {
 class _FavoriteMoviesPageState extends State<FavoriteMoviesPage> {
   final FirebaseApi _firebaseApi = FirebaseApi();
   bool _isAdmin = false;
-  String _searchQuery = ""; // Almacena la búsqueda actual.
+  String _searchQuery = "";
 
   @override
   void initState() {
@@ -106,12 +106,12 @@ class _FavoriteMoviesPageState extends State<FavoriteMoviesPage> {
           TextField(
             controller: salidasVoltajeController,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: "Salidas de Voltaje"),
+            decoration: const InputDecoration(labelText: "Voltaje máximo"),
           ),
           TextField(
             controller: salidasCorrienteController,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: "Salidas de Corriente"),
+            decoration: const InputDecoration(labelText: "Corriente máxima"),
           ),
           SwitchListTile(
             title: const Text("Función de onda"),

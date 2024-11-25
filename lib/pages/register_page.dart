@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_movies/pages/navigation_bar_page.dart';
 import 'package:my_movies/repository/firebase_api.dart';
 import '../models/user.dart';
 
@@ -206,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 16.0,
                 ),
-                // Aquí agregamos un Switch para seleccionar si el usuario es Administrador
+
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -218,7 +217,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       value: _isActionFavorite,
                       onChanged: (bool value) {
                         setState(() {
-                          _isActionFavorite = value; // Cambia el valor de _isActionFavorite
+                          _isActionFavorite = value;
                         });
                       },
                     ),

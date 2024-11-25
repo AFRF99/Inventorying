@@ -14,15 +14,15 @@ class MyMoviesPage extends StatefulWidget {
 }
 
 class _MyMoviesPageState extends State<MyMoviesPage> {
-  String _searchQuery = ''; // Almacena el texto del campo de búsqueda
+  String _searchQuery = '';
   final FirebaseApi _firebaseApi = FirebaseApi();
-  bool _isAdmin = false; // Indica si el usuario es administrador
-  bool _isLoading = true; // Indica si los datos del usuario están cargando
+  bool _isAdmin = false;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _checkAdminStatus(); // Verificar si el usuario es administrador
+    _checkAdminStatus();
   }
 
   Future<void> _checkAdminStatus() async {
@@ -31,11 +31,11 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
       var userData = await _firebaseApi.getUserData(user.uid);
       setState(() {
         _isAdmin = userData?.isActionFavorite ?? false;
-        _isLoading = false; // Finaliza la carga de datos
+        _isLoading = false;
       });
     } else {
       setState(() {
-        _isLoading = false; // Finaliza la carga si no hay usuario
+        _isLoading = false;
       });
     }
   }
@@ -75,7 +75,7 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
       var userData = await _firebaseApi.getUserData(user.uid);
 
       if (userData != null && userData.isActionFavorite) {
-        TextEditingController passwordController = TextEditingController(); // Controlador para la contraseña
+        TextEditingController passwordController = TextEditingController();
 
         AlertDialog alert = AlertDialog(
           title: const Text('Confirmar Eliminación'),
@@ -153,7 +153,7 @@ class _MyMoviesPageState extends State<MyMoviesPage> {
   InkWell _buildCard(QueryDocumentSnapshot movie) {
     return InkWell(
       onTap: () {
-        _showDetails(movie); // Muestra los detalles al hacer clic
+        _showDetails(movie);
       },
       onLongPress: () {
         _showAlertDialog(movie);
@@ -294,10 +294,10 @@ class DetailsPage extends StatelessWidget {
             Text("Canales: ${movie['canales']}",
                 style: const TextStyle(fontSize: 16.0)),
             const SizedBox(height: 8.0),
-            Text("Salidas de voltaje: ${movie['salidasVoltaje']}",
+            Text("Voltaje máximo: ${movie['salidasVoltaje']}",
                 style: const TextStyle(fontSize: 16.0)),
             const SizedBox(height: 8.0),
-            Text("Salidas de corriente: ${movie['salidasCorriente']}",
+            Text("Corriente máxima: ${movie['salidasCorriente']}",
                 style: const TextStyle(fontSize: 16.0)),
             const SizedBox(height: 8.0),
             Text("Función onda: ${movie['funcionOnda'] ? 'Sí' : 'No'}",
